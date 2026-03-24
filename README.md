@@ -1,0 +1,1 @@
+cmake -S . -B bld/ && cd bld && make && cd .. && bld/jrpg/jrpg
