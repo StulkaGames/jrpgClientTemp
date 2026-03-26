@@ -26,13 +26,12 @@ int main()
     WSADATA wsa;
     WSAStartup(MAKEWORD(2, 2), &wsa);
 #endif
-
     SOCKET sock = socket(AF_INET, SOCK_STREAM, 0);
 
     sockaddr_in serverAddr{};
     serverAddr.sin_family = AF_INET;
     serverAddr.sin_port = htons(6699);
-    serverAddr.sin_addr.s_addr = inet_addr("127.0.0.1");
+    serverAddr.sin_addr.s_addr = inet_addr("188.233.81.96");
 
     if (connect(sock, (sockaddr*)&serverAddr, sizeof(serverAddr)) == SOCKET_ERROR)
     {
