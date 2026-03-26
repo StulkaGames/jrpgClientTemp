@@ -1,7 +1,6 @@
 # CMakeList.txt: проект CMake для jrpgClient; включите исходный код и определения,
 # укажите здесь логику для конкретного проекта.
 #
-
 # Добавьте источник в исполняемый файл этого проекта.
 add_executable (jrpgClient "main.cpp" "main.h")
 cmake_minimum_required(VERSION 4.1)
