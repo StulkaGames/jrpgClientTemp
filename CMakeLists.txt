@@ -4,7 +4,7 @@
 
 # Добавьте источник в исполняемый файл этого проекта.
 add_executable (jrpgClient "main.cpp" "main.h")
-cmake_minimum_required(VERSION 3.1)
+cmake_minimum_required(VERSION 4.1)
 if (CMAKE_VERSION VERSION_GREATER 3.12)
   set_property(TARGET jrpgClient PROPERTY CXX_STANDARD 20)
 endif()
