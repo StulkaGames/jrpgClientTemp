@@ -1,4 +1,4 @@
-#include "main.h"//
+#include "main.h"
 #ifdef _WIN32
     #include <windows.h>
     static void print_utf8(const std::string& utf8_str)
