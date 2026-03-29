@@ -1,6 +1,3 @@
-// jrpgClient.h : включаемый файл для стандартных системных включаемых файлов
-// или включаемые файлы для конкретного проекта.
-
 #pragma once
 
 #include <iostream>
@@ -11,6 +8,13 @@
 	#include <winsock2.h>
 	#pragma comment(lib, "ws2_32.lib")
 	#define CLOSESOCKET closesocket
+	#include <windows.h>
+	static void print_utf8(const std::string& utf8_str)
+	{
+		SetConsoleOutputCP(CP_UTF8);  // 65001
+		std::cout << utf8_str;
+	}
+	WSADATA wsa;
 #else
 	#include <sys/types.h>
 	#include <sys/socket.h>
@@ -21,5 +25,10 @@
 	#define INVALID_SOCKET -1
 	#define SOCKET_ERROR -1
 	#define CLOSESOCKET close
+	static void print_utf8(const std::string& utf8_str)
+	{
+		std::cout << utf8_str;  // Linux/macOS по умолчанию UTF-8
+	}
 #endif
-// TODO: установите здесь ссылки на дополнительные заголовки, требующиеся для программы.
+
+	static void receiveMessages(SOCKET);

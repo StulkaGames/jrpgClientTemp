@@ -1,44 +1,9 @@
 #include "main.h"
-#ifdef _WIN32
-    #include <windows.h>
-    static void print_utf8(const std::string& utf8_str)
-    {
-        SetConsoleOutputCP(CP_UTF8);  // 65001
-        std::cout << utf8_str;
-    }
-    WSADATA wsa;
-#else
-void print_utf8(const std::string& utf8_str)
-{
-    std::cout << utf8_str;  // Linux/macOS по умолчанию UTF-8
-}
-#endif
 
-
-static void receiveMessages(SOCKET sock)
-{
-    char buffer[1024];
-    while (true)
-    {
-        int bytes = recv(sock, buffer, sizeof(buffer) - 1, 0);
-        if (bytes > 0)
-        {
-            buffer[bytes] = '\0';
-            std::cout << "\n[Сервер]: " << buffer << "\n> ";
-            std::cout.flush();
-        }
-        else
-        {
-            std::cout << "Отключено от сервера\n";
-            break;
-        }
-    }
-}
 
 int main() 
 {
 #ifdef _WIN32
-    WSAStartup(MAKEWORD(2, 2), &wsa);
     system("chcp 65001");
 #endif
 
@@ -74,8 +39,26 @@ int main()
 
     CLOSESOCKET(sock);
 
-#ifdef _WIN32
-    WSACleanup();
-#endif
     return 0;
+}
+
+
+static void receiveMessages(SOCKET sock)
+{
+    char buffer[1024];
+    while (true)
+    {
+        int bytes = recv(sock, buffer, sizeof(buffer) - 1, 0);
+        if (bytes > 0)
+        {
+            buffer[bytes] = '\0';
+            std::cout << "\n[Сервер]: " << buffer << "\n> ";
+            std::cout.flush();
+        }
+        else
+        {
+            std::cout << "Отключено от сервера\n";
+            break;
+        }
+    }
 }
