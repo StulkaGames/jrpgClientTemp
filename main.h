@@ -14,7 +14,6 @@
 		SetConsoleOutputCP(CP_UTF8);  // 65001
 		std::cout << utf8_str;
 	}
-	WSADATA wsa;
 #else
 	#include <sys/types.h>
 	#include <sys/socket.h>
@@ -31,4 +30,4 @@
 	}
 #endif
 
-	static void receiveMessages(SOCKET);
+static void receiveMessages(SOCKET);
