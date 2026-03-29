@@ -1,5 +1,16 @@
 ﻿#include "main.h"
-
+#ifdef _WIN32
+#include <windows.h>
+void print_utf8(const std::string& utf8_str) {
+    SetConsoleOutputCP(CP_UTF8);  // 65001
+    std::cout << utf8_str;
+}
+WSADATA wsa;
+#else
+void print_utf8(const std::string& utf8_str) {
+    std::cout << utf8_str;  // Linux/macOS по умолчанию UTF-8
+}
+#endif
 void receiveMessages(SOCKET sock) {
     char buffer[1024];
     while (true)
@@ -22,10 +33,9 @@ void receiveMessages(SOCKET sock) {
 int main() 
 {
 #ifdef _WIN32
-    system("chcp 65001");
-    WSADATA wsa;
     WSAStartup(MAKEWORD(2, 2), &wsa);
 #endif
+
     SOCKET sock = socket(AF_INET, SOCK_STREAM, 0);
 
     sockaddr_in serverAddr{};
@@ -40,7 +50,7 @@ int main()
     }
     else
     {
-        std::cout << "Подключён к серверу!\n";
+        std::cout << "Подключен к серверу\n";
     }
     
     std::thread recvThread(receiveMessages, sock);
